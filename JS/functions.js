@@ -7,6 +7,14 @@ if (dropDownList.value == ''){
 }
 }
 
+function sortArrayByDate(entries){
+for (var i = 0; i < entries.length;i++){
+entries[i]['data'].sort(function(a,b){
+    return new Date(a['date']) - new Date(b['date'] );
+});
+}
+}
+
 function loadUsers(){
 var dropDownList = document.getElementById('userDropDown');
 while (dropDownList.hasChildNodes()) {
@@ -72,6 +80,7 @@ function deleteUser(){
   var entries = JSON.parse(localStorage.getItem(TRACKER_USERS));
   var index= entries.findIndex(obj => obj.name == userToDelete);
   entries.splice(index,1);
+  sortArrayByDate(entries);
   localStorage.setItem(TRACKER_USERS, JSON.stringify(entries));
   loadUsers();
   if (checkNoUserSelected()){
@@ -138,6 +147,7 @@ function saveEntry(){
   if (existsFlag == false){
     existingEntries.push(newEntry);
   }
+    sortArrayByDate(existingEntries);
     localStorage.setItem(TRACKER_USERS, JSON.stringify(existingEntries));
   }
 loadUsers();
@@ -203,6 +213,7 @@ function deleteEntry(id){
   }
 }
 }
+  sortArrayByDate(entries);
   localStorage.setItem(TRACKER_USERS, JSON.stringify(entries));
   loadEntries();
 }
@@ -273,6 +284,7 @@ function saveEditedEntry(id){
   }
 }
 }
+ sortArrayByDate(entries);
  localStorage.setItem(TRACKER_USERS, JSON.stringify(entries));
  loadUsers();
  loadEntries();
