@@ -247,10 +247,10 @@ function displayEditModal(id){
   document.getElementById('nameEdit').value = nameEdit;
   document.getElementById('weightEdit').value = selectedEntry['weight'];
   document.getElementById('dateEdit').value = selectedEntry['date'];
-  document.getElementById('breakfastInputEdit').value = selectedEntry['breakfast'];
-  document.getElementById('lunchInputEdit').value = selectedEntry['lunch'];
-  document.getElementById('dinnerInputEdit').value = selectedEntry['dinner'];
-  document.getElementById('exerciseInputEdit').value = selectedEntry['exercise'];
+  document.getElementById('breakfastInputEdit').value = selectedEntry['breakfast'].replace( /<br\s*[\/]?>/gi, "\n");
+  document.getElementById('lunchInputEdit').value = selectedEntry['lunch'].replace(/<br\s*[\/]?>/gi, "\n");
+  document.getElementById('dinnerInputEdit').value = selectedEntry['dinner'].replace(/<br\s*[\/]?>/gi, "\n");
+  document.getElementById('exerciseInputEdit').value = selectedEntry['exercise'].replace(/<br\s*[\/]?>/gi, "\n");
   }
   }
   tempID = id;
