@@ -266,10 +266,10 @@ function saveEditedEntry(id){
     entries[i]['name'] = document.getElementById('nameEdit').value
     entries[i]['data'][j]['weight'] = document.getElementById('weightEdit').value;
     entries[i]['data'][j]['date'] = document.getElementById('dateEdit').value;
-    entries[i]['data'][j]['breakfast'] = document.getElementById('breakfastEdit').value;
-    entries[i]['data'][j]['lunch'] = document.getElementById('lunchEdit').value;
-    entries[i]['data'][j]['dinner'] = document.getElementById('dinnerEdit').value;
-    entries[i]['data'][j]['exercise'] = document.getElementById('exerciseEdit').value;
+    entries[i]['data'][j]['breakfast'] = document.getElementById('breakfastInputEdit').value.replace(/\r?\n/g, '<br />');
+    entries[i]['data'][j]['lunch'] = document.getElementById('lunchInputEdit').value.replace(/\r?\n/g, '<br />');
+    entries[i]['data'][j]['dinner'] = document.getElementById('dinnerInputEdit').value.replace(/\r?\n/g, '<br />');
+    entries[i]['data'][j]['exercise'] = document.getElementById('exerciseInputEdit').value.replace(/\r?\n/g, '<br />');
   }
 }
 }
