@@ -176,7 +176,8 @@ function loadEntries(){
       cell2.innerHTML = entries[index]['data'][i].weight;
       cell3.innerHTML = entries[index]['data'][i].date;
       cell4.innerHTML = '<input type = "button" onclick="deleteEntry(\''+ entries[index]['data'][i].id +'\')" class="btn btn-danger" value = "Delete">'+
-                        '<input type = "button" onclick="displayDetails(\''+ entries[index]['data'][i].id +'\')" class="btn btn-primary buttonMargin" value = "Details" data-toggle="modal" data-target="#detailsModal">';
+                        '<input type = "button" onclick="displayDetails(\''+ entries[index]['data'][i].id +'\')" class="btn btn-primary buttonMargin" value = "Details" data-toggle="modal" data-target="#detailsModal">' +
+                        '<input type = "button" onclick="displayEditModal(\''+ entries[index]['data'][i].id +'\')" class="btn btn-warning buttonMargin" value = "Edit" data-toggle="modal" data-target="#editModal">';
 
 
 }
@@ -230,6 +231,55 @@ modalBody.innerHTML = "<h5>Breakfast</h5><p>" + selectedEntry['breakfast'] + "</
 }
 }
 
+var tempID = '';
+function displayEditModal(id){
+
+  var entries = JSON.parse(localStorage.getItem(TRACKER_USERS));
+  var modalBody = document.getElementById('editModalBody');
+  var selectedEntry = '';
+  var nameEdit ='';
+  for (var i = 0; i < entries.length; i++){
+    for (var j = 0; j < entries[i]["data"].length; j++){
+  if (id == entries[i]["data"][j].id)  {
+    selectedEntry = entries[i]["data"][j];
+    nameEdit = entries[i]['name'];
+  }
+  document.getElementById('nameEdit').value = nameEdit;
+  document.getElementById('weightEdit').value = selectedEntry['weight'];
+  document.getElementById('dateEdit').value = selectedEntry['date'];
+  document.getElementById('breakfastInputEdit').value = selectedEntry['breakfast'];
+  document.getElementById('lunchInputEdit').value = selectedEntry['lunch'];
+  document.getElementById('dinnerInputEdit').value = selectedEntry['dinner'];
+  document.getElementById('exerciseInputEdit').value = selectedEntry['exercise'];
+  }
+  }
+  tempID = id;
+
+}
+
+function saveEditedEntry(id){
+
+  var entries = JSON.parse(localStorage.getItem(TRACKER_USERS));
+  for (var i = 0; i < entries.length; i++){
+    for (var j = 0; j < entries[i]["data"].length; j++){
+  if (id == entries[i]["data"][j].id)  {
+    entries[i]['name'] = document.getElementById('nameEdit').value
+    entries[i]['data'][j]['weight'] = document.getElementById('weightEdit').value;
+    entries[i]['data'][j]['date'] = document.getElementById('dateEdit').value;
+    entries[i]['data'][j]['breakfast'] = document.getElementById('breakfastEdit').value;
+    entries[i]['data'][j]['lunch'] = document.getElementById('lunchEdit').value;
+    entries[i]['data'][j]['dinner'] = document.getElementById('dinnerEdit').value;
+    entries[i]['data'][j]['exercise'] = document.getElementById('exerciseEdit').value;
+  }
+}
+}
+ localStorage.setItem(TRACKER_USERS, JSON.stringify(entries));
+ loadUsers();
+ loadEntries();
+}
+
+var saveChangesButton = document.getElementById('saveChangesButton');
+saveChangesButton.addEventListener("click", function () { saveEditedEntry(tempID)});
 var todayButton = document.getElementById('todayButton');
 todayButton.addEventListener("click", getCurrentDate);
 var deleteUserButton = document.getElementById('deleteUserButton');
