@@ -274,9 +274,15 @@ function saveEditedEntry(id){
 }
 }
  localStorage.setItem(TRACKER_USERS, JSON.stringify(entries));
+ $('#modalSaveText').fadeIn(50).fadeOut(2000);
  loadUsers();
  loadEntries();
 }
+
+$('#outer-container').fadeIn(2000);
+$('#addEntryForm').delay(1000).animate({
+  opacity:'1'
+}, 2000);
 
 var saveChangesButton = document.getElementById('saveChangesButton');
 saveChangesButton.addEventListener("click", function () { saveEditedEntry(tempID)});
