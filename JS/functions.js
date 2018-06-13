@@ -21,6 +21,7 @@ while (dropDownList.hasChildNodes()) {
   dropDownList.removeChild(dropDownList.firstChild);
 }
 var usersList = JSON.parse(localStorage.getItem(TRACKER_USERS));
+if (usersList != null){
   for (var i = 0; i < usersList.length; i++){
     var newOption = document.createElement("option");
         newOption.text = usersList[i].name;
@@ -28,6 +29,8 @@ var usersList = JSON.parse(localStorage.getItem(TRACKER_USERS));
         dropDownList.appendChild(newOption)
   }
   loadEntries();
+}
+
 }
 
 
@@ -255,6 +258,8 @@ function displayEditModal(id){
     selectedEntry = entries[i]["data"][j];
     nameEdit = entries[i]['name'];
   }
+}
+}
   document.getElementById('nameEdit').value = nameEdit;
   document.getElementById('weightEdit').value = selectedEntry['weight'];
   document.getElementById('dateEdit').value = selectedEntry['date'];
@@ -262,8 +267,6 @@ function displayEditModal(id){
   document.getElementById('lunchInputEdit').value = selectedEntry['lunch'].replace(/<br\s*[\/]?>/gi, "\n");
   document.getElementById('dinnerInputEdit').value = selectedEntry['dinner'].replace(/<br\s*[\/]?>/gi, "\n");
   document.getElementById('exerciseInputEdit').value = selectedEntry['exercise'].replace(/<br\s*[\/]?>/gi, "\n");
-  }
-  }
   tempID = id;
 
 }
