@@ -1,20 +1,23 @@
 var TRACKER_USERS = "trackerUsers";
 
+//Check if Dropdown is Empty
 function checkNoUserSelected(){
 var dropDownList = document.getElementById('userDropDown');
-if (dropDownList.value == ''){
+  if (dropDownList.value == ''){
   return true;
-}
+  }
 }
 
+//Sort Entries by date
 function sortArrayByDate(entries){
-for (var i = 0; i < entries.length;i++){
-entries[i]['data'].sort(function(a,b){
-    return new Date(a['date']) - new Date(b['date'] );
-});
-}
+  for (var i = 0; i < entries.length;i++){
+      entries[i]['data'].sort(function(a,b){
+        return new Date(a['date']) - new Date(b['date'] );
+      });
+  }
 }
 
+//Load the users that are in local storage and add them to the drop down list
 function loadUsers(){
 var dropDownList = document.getElementById('userDropDown');
 while (dropDownList.hasChildNodes()) {
@@ -34,6 +37,7 @@ if (usersList != null){
 }
 
 
+//charting function with chart.js
 function drawChart(){
 
   var chartColors = {
@@ -77,6 +81,7 @@ let lineChart = new Chart(chart, {
 
 }
 
+//delete a user from the storage
 function deleteUser(){
   var dropDownList = document.getElementById('userDropDown');
   var userToDelete = dropDownList.value;
@@ -95,6 +100,9 @@ function deleteUser(){
 
 }
 
+
+//Save an entry for the user
+//If the user does not exist yet, add the user to storage and then add the entry
 function saveEntry(){
   var name = document.getElementById('name').value;
   var tempSelectedUser = document.getElementById('userDropDown').value;
@@ -162,6 +170,7 @@ loadEntries();
 }
 
 
+//Load the entries for the selected user
 function loadEntries(){
   var table = document.getElementById('entryTable');
   var chart = document.getElementById('chart');
@@ -206,6 +215,7 @@ else {
 }
 
 
+//Delete a selected entry
 function deleteEntry(id){
 
   var entries = JSON.parse(localStorage.getItem(TRACKER_USERS));
@@ -226,6 +236,7 @@ function getCurrentDate(){
   dateField.value = moment().format("YYYY-MM-DD");
 }
 
+//display the details that the user entered (meanls, exercise)
 function displayDetails(id){
 
   var entries = JSON.parse(localStorage.getItem(TRACKER_USERS));
@@ -271,6 +282,7 @@ function displayEditModal(id){
 
 }
 
+//For saving the edit modal
 function saveEditedEntry(id){
 
   var entries = JSON.parse(localStorage.getItem(TRACKER_USERS));
@@ -287,6 +299,7 @@ function saveEditedEntry(id){
   }
 }
 }
+
  sortArrayByDate(entries);
  localStorage.setItem(TRACKER_USERS, JSON.stringify(entries));
  $('#modalSaveText').fadeIn(50).fadeOut(2000);
@@ -294,11 +307,13 @@ function saveEditedEntry(id){
  loadEntries();
 }
 
+//jquery animations
 $('#outer-container').fadeIn(2000);
 $('#addEntryForm').delay(1000).animate({
   opacity:'1'
 }, 2000);
 
+//event handlers
 var saveChangesButton = document.getElementById('saveChangesButton');
 saveChangesButton.addEventListener("click", function () { saveEditedEntry(tempID)});
 var todayButton = document.getElementById('todayButton');
